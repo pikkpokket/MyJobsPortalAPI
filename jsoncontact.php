@@ -18,7 +18,7 @@ if($_POST) {
   			error_log("Connect failed: " . mysqli_connect_error());
 			echo '{"success":0,"error_message":"' . mysqli_connect_error() . '"}';
 		} else {
-			if ($stmt = $mysqli->prepare("SELECT * FROM announcements WHERE compagny = ?")) {
+			if ($stmt = $mysqli->prepare("SELECT * FROM contacts WHERE compagny = ?")) {
 				$stmt->bind_param("s", $compagny);
 
 				$resultArray = array();
@@ -27,7 +27,8 @@ if($_POST) {
 				$stmt->execute();
 				$result = $stmt->get_result();
 				while ($row = $result->fetch_array(MYSQLI_NUM)) {
-					$resultArray = $row;
+					$tempArray = $row;
+	    			array_push($resultArray, $tempArray);
 				}
 				echo json_encode($resultArray);
 				$stmt->free_result();
