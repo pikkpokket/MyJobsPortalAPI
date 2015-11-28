@@ -4,7 +4,7 @@ header('Content-type: application/json');
 
 if($_POST) {
 	$compagny	= $_POST['compagny'];
-
+	echo "l";
 	if($_POST['compagny']) {
 
 		$db_name     = 'myjobs';
@@ -37,6 +37,26 @@ if($_POST) {
 			mysqli_close($mysqli);
 		}
 	}
+} else {
+	$db_name     = 'myjobs';
+	$db_user     = 'louischeminant';
+	$db_password = 'OustamineL040194';
+	$server_url  = '127.0.0.1';
+
+	$mysqli = new mysqli($server_url, $db_user, $db_password, $db_name);
+
+	$sql = "SELECT * FROM contacts";
+	if ($result = mysqli_query($mysqli, $sql)) {
+		$resultArray = array();
+		$tempArray = array();
+
+		while($row = $result->fetch_object()) {
+			$tempArray = $row;
+	    	array_push($resultArray, $tempArray);
+		}
+		echo json_encode($resultArray);
+	}
+	mysqli_close($mysqli);
 }
 
 ?>

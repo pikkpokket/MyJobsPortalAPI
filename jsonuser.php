@@ -27,8 +27,9 @@ if($_POST) {
 
 				$stmt->execute();
 				$result = $stmt->get_result();
-				while ($row = $result->fetch_array(MYSQLI_NUM)) {
-					$resultArray = $row;
+				while ($row = $result->fetch_object()) {
+					$tempArray = $row;
+	    			array_push($resultArray, $tempArray);
 				}
 				echo json_encode($resultArray);
 				$stmt->free_result();
