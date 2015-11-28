@@ -23,25 +23,41 @@ if($_POST) {
 		error_log("Connect failed: " . mysqli_connect_error());
 		echo '{"success":0,"error_message":"' . mysqli_connect_error() . '"}';
 	} else {
-		$minutes = 0;
+		$array1 = explode(":", $start);
+		$array2 = explode(":", $end);
+		$hour = $array1[0];
+		$minutes = $array1[1];
+		$hourEnd = $array2[0];
+		$minutesEnd = $array2[1];
 
-		while($start < $end) {
+		while($hour < $hourEnd || $minutes < $minutesEnd) {
 
-			if ($minutes == 60) {
-				$start = $start + 1;
-				$minutes = 0;
-				$hour = $start."h".$minutes."0\n";
-				$minutes = $minutes + $duration;
-			} else if ($minutes == 0) {
-				$hour = $start."h".$minutes."0\n";
-				$minutes = $minutes + $duration;
-			}else {
-				$hour = $start."h".$minutes."\n";
-				$minutes = $minutes + $duration;
+			if ($minutes >= 60) {
+				$hour = $hour + 1;
+				$minutes = $minutes-60;
+				if ($minutes == 0){
+					$nbr = $hour.$minutes."0";
+				} else {
+					$nbr = $hour.$minutes;
+				}
+				$nbr2 = $hourEnd.$minutesEnd;
+				if ($nbr == $nbr2) {
+					break;
+				}
+
+				if ($minutes >= 0 && $minutes <= 9) {
+					$schedule = $hour."h0".$minutes;
+				} else {
+					$schedule = $hour."h".$minutes;
+				}
+			} else {
+				$schedule = $hour."h".$minutes;
 			}
+			$minutes = $minutes + $duration;
+
 			$durate = $duration." minutes";
 			$stmt = $mysqli->prepare("INSERT INTO appointments (date_offer, start, compagny, user, duration) VALUES (?, ?, ?, ?, ?)");
-			$stmt->bind_param('sssss', $date, $hour, $compagny, $user, $durate);
+			$stmt->bind_param('sssss', $date, $schedule, $compagny, $user, $durate);
 			$stmt->execute();
 			if ($stmt->error) {error_log("Error: " . $stmt->error); }
 			$success = $stmt->affected_rows;
