@@ -32,7 +32,7 @@ CREATE TABLE compagnies (
 
 CREATE TABLE announcements (
 	compagny varchar(50) NOT NULL,
-  type varchar(50) NOT NULL,
+  	type varchar(50) NOT NULL,
 	offer varchar(255) NOT NULL,
 	missions varchar(255) NOT NULL,
 	level varchar(255) NOT NULL,
@@ -68,8 +68,9 @@ CREATE TABLE contacts (
 );
 
 CREATE TABLE appointments (
+  date_offer varchar(10) NOT NULL,
   start varchar(10) NOT NULL,
-  end varchar(10) NOT NULL,
   compagny varchar(50) NOT NULL,
-  user varchar(50) NOT NULL
+  user varchar(50) NOT NULL,
+  duration varchar(10) NOT NULL
 );
