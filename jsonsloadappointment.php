@@ -4,7 +4,7 @@ mb_internal_encoding('UTF-8');
 header('Content-type: text/html; charset=UTF-8; application/json');
 
 if($_POST) {
-	$compagny	= $_POST['compagny'];
+	$id			= $_POST['id'];
 	$user 		= $_POST['user'];
 
 	$db_name     = 'myjobs';
@@ -19,8 +19,8 @@ if($_POST) {
 		error_log("Connect failed: " . mysqli_connect_error());
 		echo '{"success":0,"error_message":"' . mysqli_connect_error() . '"}';
 	} else {
-		if ($stmt = $mysqli->prepare("SELECT * FROM appointments WHERE compagny = ? AND user = ?")) {
-			$stmt->bind_param("ss", $compagny, $user);
+		if ($stmt = $mysqli->prepare("SELECT * FROM appointments WHERE id_announcement = ? AND user = ?")) {
+			$stmt->bind_param("ss", $id, $user);
 
 			$resultArray = array();
 			$tempArray = array();

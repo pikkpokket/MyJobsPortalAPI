@@ -10,6 +10,7 @@ if($_POST) {
 	$date		= $_POST['date'];
 	$compagny	= $_POST['compagny'];
 	$user 		= $_POST['user'];
+	$id 		= $_POST['id'];
 
 	$db_name     = 'myjobs';
 	$db_user     = 'louischeminant';
@@ -56,8 +57,8 @@ if($_POST) {
 			$minutes = $minutes + $duration;
 
 			$durate = $duration." minutes";
-			$stmt = $mysqli->prepare("INSERT INTO appointments (date_offer, start, compagny, user, duration) VALUES (?, ?, ?, ?, ?)");
-			$stmt->bind_param('sssss', $date, $schedule, $compagny, $user, $durate);
+			$stmt = $mysqli->prepare("INSERT INTO appointments (date_offer, start, compagny, user, duration, id_announcement) VALUES (?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param('ssssss', $date, $schedule, $compagny, $user, $durate, $id);
 			$stmt->execute();
 			if ($stmt->error) {error_log("Error: " . $stmt->error); }
 			$success = $stmt->affected_rows;

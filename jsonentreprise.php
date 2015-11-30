@@ -13,7 +13,7 @@ if (mysqli_connect_errno())
 {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 } else {
-	$sql = "SELECT announcements.compagny, type, offer, missions, level, announcements.address, latitude, longitude, compagnies.description  FROM announcements INNER JOIN compagnies ON compagnies.name=announcements.compagny";
+	$sql = "SELECT announcements.compagny, type, offer, missions, level, announcements.address, latitude, longitude, compagnies.description, announcements.id  FROM announcements INNER JOIN compagnies ON compagnies.name=announcements.compagny";
 	if ($result = mysqli_query($mysqli, $sql)) {
 		$resultArray = array();
 		$tempArray = array();
