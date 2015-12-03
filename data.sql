@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS emails;
 DROP TABLE IF EXISTS images;
 DROP TABLE IF EXISTS contacts;
 DROP TABLE IF EXISTS appointments;
+DROP TABLE IF EXISTS favorites;
 
 CREATE TABLE users (
 	id int(11) NOT NULL AUTO_INCREMENT,
@@ -55,7 +56,7 @@ CREATE TABLE images (
   img_type varchar(25) NOT NULL,
   img_desc varchar(100) NOT NULL,
   img_blob LONGBLOB NOT NULL,
-  PRIMARY KEY (img_id)
+  PRIMARY KEY (img_id),
 ) ENGINE=INNODB CHARACTER SET utf8 COLLATE utf8_bin;
 
 CREATE TABLE contacts (

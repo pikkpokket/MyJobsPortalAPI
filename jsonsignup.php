@@ -39,7 +39,6 @@ if($_POST) {
 
 					$stmt->close();
 
-				/* close connection */
 					$mysqli->close();
 					error_log("Success: $success");
 
@@ -51,10 +50,6 @@ if($_POST) {
 					}
 				} else {
 					$stmt = $mysqli->prepare("INSERT INTO $db (name, mail, password, phone, address, description) VALUES (?, ?, ?, ?, ?, ?)");
-					include ("./Images/transfert.php");
-					if (isset($logo)) {
-            			transfert();
-      				}
       				$password = md5($password);
 					$stmt->bind_param('ssssss', $name, $mail, $password, $phone, $address, $description);
 					$stmt->execute();
@@ -63,12 +58,15 @@ if($_POST) {
 
 					$stmt->close();
 
-				/* close connection */
 					$mysqli->close();
 					error_log("Success: $success");
 
 					if ($success > 0) {
-					error_log("User '$mail' created.");
+						include ("./Images/transfert.php");
+						if (isset($logo)) {
+            				transfert();
+      					}
+						error_log("User '$mail' created.");
 						echo '{"success":1}';
 					} else {
 						echo '{"success":0,"error_message":"Ce compte existe déj."}';
