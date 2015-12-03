@@ -10,8 +10,8 @@ if($_POST) {
 	if($mail && $password) {
 
 			$db_name     = 'myjobs';
-			$db_user     = 'root';
-			$db_password = 'root';
+			$db_user     = 'louischeminant';
+			$db_password = 'OustamineL040194';
 			$server_url  = '127.0.0.1';
 
 			$mysqli = new mysqli($server_url, $db_user, $db_password, $db_name);
@@ -23,7 +23,7 @@ if($_POST) {
 			} else {
 				if ($stmt = $mysqli->prepare("SELECT mail FROM $db WHERE mail = ? and password = ?")) {
 
-					// $password = md5($password);
+					$password = md5($password);
 
 					/* bind parameters for markers */
 					$stmt->bind_param("ss", $mail, $password);
